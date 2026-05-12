@@ -1,0 +1,59 @@
+<div class="layout-wrapper">
+  <aside class="sidebar" [class.collapsed]="isCollapsed">
+
+    <div class="sidebar-header">
+      <div class="brand">
+        <div class="brand-icon">
+          <i class="fa-solid fa-bolt"></i>
+        </div>
+        <span class="brand-name">EmpAdmin</span>
+      </div>
+      <button class="toggle-btn" (click)="toggle()">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+    </div>
+
+    <div class="sidebar-body">
+      <div class="section-title">Main</div>
+      <a *ngFor="let item of navItems"
+         [routerLink]="item.route"
+         routerLinkActive="active"
+         class="nav-item">
+        <i class="fa-solid {{ item.icon }}"></i>
+        <span class="nav-label">{{ item.label }}</span>
+        <span *ngIf="item.badge" class="nav-badge" [class.warn]="item.badgeWarn">
+          {{ item.badge }}
+        </span>
+      </a>
+    </div>
+
+    <div class="sidebar-footer">
+      <div class="user-card">
+        <div class="avatar">MH</div>
+        <div class="user-info">
+          <div class="user-name">Mohammed</div>
+          <div class="user-role">Administrator</div>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <div class="main-area">
+    <div class="topbar">
+      <span class="page-title">EmpAdmin</span>
+      <div class="topbar-actions">
+        <button class="icon-btn">
+          <i class="fa-solid fa-bell"></i>
+          <span class="notif-dot"></span>
+        </button>
+        <button class="icon-btn">
+          <i class="fa-solid fa-magnifying-glass"></i>
+        </button>
+        <div class="avatar" style="cursor:pointer;">MH</div>
+      </div>
+    </div>
+    <main class="content">
+      <router-outlet></router-outlet>
+    </main>
+  </div>
+</div>
