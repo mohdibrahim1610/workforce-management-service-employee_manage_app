@@ -1,1 +1,63 @@
-<p>department works!</p>
+<div class="crud-wrap">
+
+  <!-- Form Row -->
+  <div class="form-card">
+    <div class="form-row">
+
+      <!-- col-3: Department Name -->
+      <div class="field-group">
+        <label for="deptName">Department Name</label>
+        <input type="text" id="deptName" [(ngModel)]="department.name"
+               placeholder="e.g. Human Resources" />
+      </div>
+
+      <!-- col-2: Is Active -->
+      <div class="checkbox-group">
+        <span class="top-label">Status</span>
+        <div class="checkbox-row">
+          <input type="checkbox" id="isActive" [(ngModel)]="department.isActive" />
+          <span>Is Active</span>
+        </div>
+      </div>
+
+      <!-- Buttons -->
+      <div class="btn-group">
+        <button class="btn btn-save" (click)="save()">Save</button>
+        <button class="btn btn-reset" (click)="reset()">Reset</button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Table -->
+  <div class="table-card">
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Department Name</th>
+          <th>Is Active</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (dept of departments; track dept.id; let i = $index) {
+          <tr>
+            <td>{{ i + 1 }}</td>
+            <td>{{ dept.name }}</td>
+            <td>
+              <span [class]="dept.isActive ? 'badge-active' : 'badge-inactive'">
+                {{ dept.isActive ? 'Active' : 'Inactive' }}
+              </span>
+            </td>
+            <td>
+              <button class="btn-edit" (click)="edit(dept)">Edit</button>
+              <button class="btn-delete" (click)="remove(dept.id)">Delete</button>
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+
+</div>
