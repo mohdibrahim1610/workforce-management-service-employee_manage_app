@@ -21,7 +21,7 @@ http= inject(HttpClient);
 
 onLogin(){
   console.log(this.loginObj);
-  this.http.post('https://localhost:7069/api/EmployeeMaster/login', this.loginObj).subscribe((res:any)=>{
+  this.http.post('http://localhost:5108/api/EmployeeMaster/login', this.loginObj).subscribe((res:any)=>{
     debugger;
     console.log(res);
     if(res.message === 'Login successful'){

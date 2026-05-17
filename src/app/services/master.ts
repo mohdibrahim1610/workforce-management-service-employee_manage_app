@@ -13,5 +13,14 @@ export class Master {
     getAllDepartments() {
     return this.http.get<DepartmentModel[]>(this.apiUrl + 'DepartmentMaster/GetAllDepartments');
   }
+  saveDepartment(department: DepartmentModel) {
+    return this.http.post<DepartmentModel[]>(this.apiUrl + 'DepartmentMaster/AddDepartment', department);
+  }
+  deleteDepartment(id: number) {
+    return this.http.delete(this.apiUrl + 'DepartmentMaster/DeleteDepartment/' + id);
+  }
+  updateDepartment(id: number, department: DepartmentModel) {
+    return this.http.put(this.apiUrl + 'DepartmentMaster/UpdateDepartment/' + id, department);
+  }
 
 }

@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, signal, Signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Master } from '../../services/master';
 import { DepartmentModel } from '../../models/DepartmentModel';
@@ -21,7 +21,8 @@ export class Department implements OnInit {
   isEditMode = false;
   editingId: number | null = null;
   masterService= inject(Master);
-  depList : DepartmentModel [] = [];
+
+  depList = signal<DepartmentModel[]>([]);
 
   ngOnInit() {
     this.getAllDepartments();
@@ -40,42 +41,44 @@ export class Department implements OnInit {
   getAllDepartments() {
     this.masterService.getAllDepartments().subscribe((data: any) => {
       this.departments = data;
-      this.depList = data;
+      this.depList.set(data);
     });
   }
-  save(): void {
-    const name = this.department.name.trim();
-    if (!name) return;
-
-    if (this.isEditMode && this.editingId !== null) {
-      const index = this.departments.findIndex(d => d.id === this.editingId);
-      if (index !== -1) {
-        this.departments[index] = {
-          id: this.editingId,
-          name: name,
-          isActive: this.department.isActive,
-        };
-      }
-    } else {
-      const newId = this.departments.length
-        ? Math.max(...this.departments.map(d => d.id)) + 1
-        : 1;
-      this.departments.push({ id: newId, name: name, isActive: this.department.isActive });
-    }
-
-    this.reset();
+save(): void {
+  if (this.isEditMode && this.editingId !== null) {
+    // UPDATE
+    this.masterService.updateDepartment(this.editingId, this.department).subscribe({
+      next: () => {
+        this.getAllDepartments();
+        this.reset();
+      },
+      error: (err) => console.error('Error updating department:', err)
+    });
+  } else {
+    // CREATE
+    this.masterService.saveDepartment(this.department).subscribe({
+      next: () => {
+        this.getAllDepartments();
+        this.reset();
+      },
+      error: (err) => console.error('Error saving department:', err)
+    });
   }
+}
 
-  edit(dept: DepartmentModel ): void {
-    this.isEditMode = true;
-    this.editingId = dept.id;
-    this.department = { ...dept };
-  }
+// Only populate the form — NO API call here
+edit(dept: DepartmentModel): void {
+  this.isEditMode = true;
+  this.editingId = dept.id;
+  this.department = { ...dept };  // spreads into form fields
+}
 
-  remove(departmentId: number): void {
-    this.departments = this.departments.filter(d => d.id !== departmentId);
-    if (this.editingId === departmentId) this.reset();
-  }
+ remove(departmentId: number): void {
+  this.masterService.deleteDepartment(departmentId).subscribe({
+    next: () => this.getAllDepartments(),
+    error: (err) => console.error('Error deleting department:', err)
+  });
+}
 
   reset(): void {
     this.department = this.getEmpty();

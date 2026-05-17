@@ -227,3 +227,7 @@ tbody td {
   background: #fef2f2;
   border-color: #f87171;
 }
+tr.editing {
+  background-color: #fffbe6;
+  outline: 2px solid #f0a500;
+}
