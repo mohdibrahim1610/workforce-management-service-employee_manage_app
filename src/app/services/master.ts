@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { DepartmentModel } from '../models/DepartmentModel';
+import { DesignationModel } from '../models/DesignationModel';
 
 @Injectable({
   providedIn: 'root',
@@ -23,4 +24,11 @@ export class Master {
     return this.http.put(this.apiUrl + 'DepartmentMaster/UpdateDepartment/' + id, department);
   }
 
+
+  /// Designation APIs
+
+getAllDesignations() { return this.http.get<DesignationModel[]>(this.apiUrl + 'DesignationMaster'); }
+saveDesignation(data: DesignationModel) { return this.http.post(this.apiUrl + 'DesignationMaster', data); }
+updateDesignation(id: number, data: DesignationModel) { return this.http.put(this.apiUrl + 'DesignationMaster/' + id, data); }
+deleteDesignation(id: number) { return this.http.delete(this.apiUrl + 'DesignationMaster/' + id); }
 }

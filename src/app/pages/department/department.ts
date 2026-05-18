@@ -74,6 +74,7 @@ edit(dept: DepartmentModel): void {
 }
 
  remove(departmentId: number): void {
+  alert("are you sure to delete this record?");
   this.masterService.deleteDepartment(departmentId).subscribe({
     next: () => this.getAllDepartments(),
     error: (err) => console.error('Error deleting department:', err)

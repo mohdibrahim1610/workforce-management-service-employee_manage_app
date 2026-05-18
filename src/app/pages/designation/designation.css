@@ -1,0 +1,233 @@
+.crud-wrap {
+  padding: 1.5rem;
+  font-family: inherit;
+}
+
+/* Form Card */
+.form-card {
+  background: #fff;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 1.25rem 1.5rem;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 3fr 2fr auto;
+  gap: 16px;
+  align-items: end;
+}
+
+/* Field Group */
+.field-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.field-group label {
+  font-size: 13px;
+  font-weight: 500;
+  color: #475569;
+}
+
+.field-group input[type="text"] {
+  height: 38px;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  padding: 0 12px;
+  font-size: 14px;
+  color: #1e293b;
+  background: #fff;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.field-group input[type="text"]:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.12);
+}
+
+/* Checkbox Group */
+.checkbox-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.top-label {
+  font-size: 13px;
+  font-weight: 500;
+  color: #475569;
+}
+
+.checkbox-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 38px;
+}
+
+.checkbox-row input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  accent-color: #3b82f6;
+  cursor: pointer;
+}
+
+.checkbox-row span {
+  font-size: 14px;
+  color: #1e293b;
+}
+
+/* Button Group */
+.btn-group {
+  display: flex;
+  gap: 8px;
+  align-items: flex-end;
+}
+
+.btn {
+  height: 38px;
+  padding: 0 20px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  border: 1px solid #cbd5e1;
+  background: #fff;
+  color: #374151;
+  transition: all 0.15s;
+  white-space: nowrap;
+}
+
+.btn:hover {
+  background: #f8fafc;
+  border-color: #94a3b8;
+}
+
+.btn-save {
+  background: #2563eb;
+  color: #fff;
+  border-color: #2563eb;
+}
+
+.btn-save:hover {
+  background: #1d4ed8;
+  border-color: #1d4ed8;
+}
+
+.btn-reset {
+  color: #64748b;
+}
+
+/* Table Card */
+.table-card {
+  background: #fff;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+thead th {
+  text-align: left;
+  padding: 11px 16px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  background: #f8fafc;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+tbody tr {
+  border-bottom: 1px solid #f1f5f9;
+  transition: background 0.1s;
+}
+
+tbody tr:last-child {
+  border-bottom: none;
+}
+
+tbody tr:hover {
+  background: #f8fafc;
+}
+
+tbody td {
+  padding: 12px 16px;
+  color: #1e293b;
+  vertical-align: middle;
+}
+
+/* Status Badge */
+.badge-active {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 500;
+  padding: 3px 10px;
+  border-radius: 99px;
+  background: #dcfce7;
+  color: #15803d;
+}
+
+.badge-inactive {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 500;
+  padding: 3px 10px;
+  border-radius: 99px;
+  background: #f1f5f9;
+  color: #64748b;
+}
+
+/* Action Buttons */
+.btn-edit {
+  height: 30px;
+  padding: 0 14px;
+  border-radius: 5px;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  border: 1px solid #cbd5e1;
+  background: #fff;
+  color: #2563eb;
+  margin-right: 6px;
+  transition: all 0.15s;
+}
+
+.btn-edit:hover {
+  background: #eff6ff;
+  border-color: #93c5fd;
+}
+
+.btn-delete {
+  height: 30px;
+  padding: 0 14px;
+  border-radius: 5px;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  border: 1px solid #fca5a5;
+  background: #fff;
+  color: #dc2626;
+  transition: all 0.15s;
+}
+
+.btn-delete:hover {
+  background: #fef2f2;
+  border-color: #f87171;
+}
+tr.editing {
+  background-color: #fffbe6;
+  outline: 2px solid #f0a500;
+}
