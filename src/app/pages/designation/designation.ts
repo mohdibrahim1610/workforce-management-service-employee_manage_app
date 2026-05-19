@@ -1,59 +1,68 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Master } from '../../services/master';
-
 import { DepartmentModel } from '../../models/DepartmentModel';
 import { DesignationModel } from '../../models/DesignationModel';
 
 @Component({
   selector: 'app-designation',
-  imports: [FormsModule],
+  imports: [ReactiveFormsModule],
   templateUrl: './designation.html',
   styleUrl: './designation.css',
 })
 export class Designation implements OnInit {
 
-  designation: DesignationModel = this.getEmpty();
+  designationForm!: FormGroup;
   isEditMode = false;
   editingId: number | null = null;
 
+  fb = inject(FormBuilder);
   masterService = inject(Master);
 
   depList = signal<DepartmentModel[]>([]);
   desgList = signal<DesignationModel[]>([]);
 
   ngOnInit() {
-    this.getAllDepartments();
-    this.getAllDesignations();
+    this.createForm();
+    this.loadDepartments();
+    this.loadDesignations();
   }
 
-  private getEmpty(): DesignationModel {
-  return { designationId: 0, departmentId: 0, designationName: '', isActive: true };
-}
+  createForm() {
+    this.designationForm = this.fb.group({
+      designationId: [0],
+      departmentId: [0, Validators.required],
+      designationName: ['', Validators.required]
+    });
+  }
 
-  getAllDepartments() {
+  loadDepartments() {
     this.masterService.getAllDepartments().subscribe({
-      next: (data: DepartmentModel[]) => this.depList.set(data),
+      next: (res: DepartmentModel[]) => this.depList.set(res),
       error: (err) => console.error('Error loading departments:', err)
     });
   }
 
-  getAllDesignations() {
+  loadDesignations() {
     this.masterService.getAllDesignations().subscribe({
-      next: (data: DesignationModel[]) => this.desgList.set(data),
+      next: (res: DesignationModel[]) => this.desgList.set(res),
       error: (err) => console.error('Error loading designations:', err)
     });
   }
 
   save(): void {
+    if (this.designationForm.invalid) return;
+
+    const formValue: DesignationModel = { ...this.designationForm.value, departmentId: Number(this.designationForm.value.departmentId) };
+
     if (this.isEditMode && this.editingId !== null) {
-      this.masterService.updateDesignation(this.editingId, this.designation).subscribe({
-        next: () => { this.getAllDesignations(); this.reset(); },
+      this.masterService.updateDesignation(this.editingId, formValue).subscribe({
+        next: () => { this.loadDesignations(); this.reset(); },
         error: (err) => console.error('Error updating:', err)
       });
     } else {
-      this.masterService.saveDesignation(this.designation).subscribe({
-        next: () => { this.getAllDesignations(); this.reset(); },
+      this.masterService.saveDesignation(formValue).subscribe({
+        next: () => { this.loadDesignations(); this.reset(); },
         error: (err) => console.error('Error saving:', err)
       });
     }
@@ -62,18 +71,22 @@ export class Designation implements OnInit {
   edit(desg: DesignationModel): void {
     this.isEditMode = true;
     this.editingId = desg.designationId;
-    this.designation = { ...desg };
+    this.designationForm.patchValue({
+      designationId: desg.designationId,
+      departmentId: desg.departmentId,
+      designationName: desg.designationName
+    });
   }
 
   remove(id: number): void {
     this.masterService.deleteDesignation(id).subscribe({
-      next: () => this.getAllDesignations(),
+      next: () => this.loadDesignations(),
       error: (err) => console.error('Error deleting:', err)
     });
   }
 
   reset(): void {
-    this.designation = this.getEmpty();
+    this.designationForm.reset({ designationId: 0, departmentId: 0, designationName: '' });
     this.isEditMode = false;
     this.editingId = null;
   }

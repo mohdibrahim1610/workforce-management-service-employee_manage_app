@@ -1,48 +1,51 @@
 <div class="crud-wrap">
 
-  <!-- Form Row -->
   <div class="form-card">
-    <div class="form-row">
+    <form [formGroup]="designationForm">
+      <div class="form-row">
 
-      <!-- Department Dropdown -->
-      <div class="field-group">
-        <label for="deptSelect">Department</label>
-        <select id="deptSelect" [(ngModel)]="designation.departmentId">
-          <option [value]="0" disabled>Select department</option>
-          @for (dept of depList(); track dept.id) {
-            <option [value]="dept.id">{{ dept.name }}</option>
+        <div class="field-group">
+          <label class="form-label">Department</label>
+          <select formControlName="departmentId" class="form-select">
+            <option [value]="0" disabled>Select Department</option>
+            @for (item of depList(); track $index) {
+              <option [value]="item.id">{{ item.name }}</option>
+            }
+          </select>
+          @if (designationForm.get('departmentId')?.invalid &&
+               designationForm.get('departmentId')?.touched) {
+            <span class="error-text">Department is required</span>
           }
-        </select>
-      </div>
-
-      <!-- Designation Name -->
-      <div class="field-group">
-        <label for="desgName">Designation Name</label>
-        <input type="text" id="desgName" [(ngModel)]="designation.designationName"
-               placeholder="Enter designation name" maxlength="50" />
-      </div>
-
-      <!-- Is Active -->
-      <div class="checkbox-group">
-        <span class="top-label">Is Active</span>
-        <div class="checkbox-row">
-          <input type="checkbox" id="isActive" [(ngModel)]="designation.isActive" />
-          <span>Active</span>
         </div>
-      </div>
 
-      <!-- Buttons -->
-      <div class="btn-group">
-        <button class="btn btn-save" (click)="save()">
-          {{ isEditMode ? 'Update' : 'Save' }}
-        </button>
-        <button class="btn btn-reset" (click)="reset()">Reset</button>
-      </div>
+        <div class="field-group">
+          <label class="form-label">Designation Name</label>
+          <input
+            type="text"
+            formControlName="designationName"
+            class="form-control"
+            placeholder="Enter designation name"
+            maxlength="50"
+          />
+          @if (designationForm.get('designationName')?.invalid &&
+               designationForm.get('designationName')?.touched) {
+            <span class="error-text">Designation name is required</span>
+          }
+        </div>
 
-    </div>
+        <div class="btn-group">
+          <button class="btn btn-save" (click)="save()">
+            {{ isEditMode ? 'Update' : 'Save' }}
+          </button>
+          <button class="btn btn-reset" type="button" (click)="reset()">
+            Reset
+          </button>
+        </div>
+
+      </div>
+    </form>
   </div>
 
-  <!-- Table -->
   <div class="table-card">
     <table>
       <thead>
@@ -50,24 +53,40 @@
           <th>#</th>
           <th>Department</th>
           <th>Designation Name</th>
-          <th>Is Active</th>
           <th>Actions</th>
         </tr>
       </thead>
       <tbody>
-        @for (desg of desgList(); track desg.designationId; let i = $index) {
-          <tr [class.editing]="editingId === desg.designationId">
-            <td>{{ i + 1 }}</td>
-            <!-- <td>{{ getDepartmentName(desg.departmentId) }}</td> -->
-            <td>{{ desg.designationName }}</td>
-            <td>{{ desg.isActive ? 'Yes' : 'No' }}</td>
-            <td>
-              <button class="btn-edit" (click)="edit(desg)">Edit</button>
-              <!-- <button class="btn-delete" (click)="remove(desg.designationId)"
-                [disabled]="editingId === desg.designationId">Delete</button> -->
-            </td>
-          </tr>
-        }
+          @if (desgList() === null || desgList()?.length === 0) 
+          {
+            <tr>
+              <td colspan="4" class="no-data  
+              
+              ">Loading...</td>
+            </tr>
+          }
+          @else {
+
+            @for (desg of desgList(); track desg.designationId; let i = $index) 
+            {
+              <tr [class.editing]="editingId === desg.designationId">
+                <td>{{ i + 1 }}</td>
+                <td>{{ desg.departmentName }}</td>
+                <td>{{ desg.designationName }}</td>
+                <td>
+                  <button class="btn-edit" (click)="edit(desg)">Edit</button>
+                  <button
+                    class="btn-delete"
+                    (click)="remove(desg.designationId)"
+                    [disabled]="editingId === desg.designationId">
+                    Delete
+                  </button>
+                </td>
+              </tr>
+          }
+          }
+          
+        
       </tbody>
     </table>
   </div>
