@@ -16,6 +16,7 @@ export class Designation implements OnInit {
   isEditMode = false;
   editingId: number | null = null;
 
+
   fb = inject(FormBuilder);
   masterService = inject(Master);
 
@@ -28,13 +29,13 @@ export class Designation implements OnInit {
     this.loadDesignations();
   }
 
-  createForm() {
-    this.designationForm = this.fb.group({
-      designationId: [0],
-      departmentId: [0, Validators.required],
-      designationName: ['', Validators.required]
-    });
-  }
+createForm() {
+  this.designationForm = this.fb.group({
+    designationId: [0],
+    departmentId: [null, [Validators.required, Validators.min(1)]],  // ← null default
+    designationName: ['', Validators.required]
+  });
+}
 
   loadDepartments() {
     this.masterService.getAllDepartments().subscribe({
@@ -50,23 +51,28 @@ export class Designation implements OnInit {
     });
   }
 
-  save(): void {
-    if (this.designationForm.invalid) return;
+save(): void {
+  if (this.designationForm.invalid) return;
 
-    const formValue: DesignationModel = { ...this.designationForm.value, departmentId: Number(this.designationForm.value.departmentId) };
+  const payload: DesignationModel = {
+    designationId: 0,
+    departmentId: Number(this.designationForm.value.departmentId),
+    designationName: this.designationForm.value.designationName,
+    departmentName: ''
+  };
 
-    if (this.isEditMode && this.editingId !== null) {
-      this.masterService.updateDesignation(this.editingId, formValue).subscribe({
-        next: () => { this.loadDesignations(); this.reset(); },
-        error: (err) => console.error('Error updating:', err)
-      });
-    } else {
-      this.masterService.saveDesignation(formValue).subscribe({
-        next: () => { this.loadDesignations(); this.reset(); },
-        error: (err) => console.error('Error saving:', err)
-      });
-    }
+  if (this.isEditMode && this.editingId !== null) {
+    this.masterService.updateDesignation(this.editingId, payload).subscribe({
+      next: () => { this.loadDesignations(); this.reset(); },
+      error: (err) => console.error('Error updating:', err)
+    });
+  } else {
+    this.masterService.saveDesignation(payload).subscribe({
+      next: () => { this.loadDesignations(); this.reset(); },
+      error: (err) => console.error('Error saving:', err)
+    });
   }
+}
 
   edit(desg: DesignationModel): void {
     this.isEditMode = true;

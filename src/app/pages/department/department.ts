@@ -28,19 +28,19 @@ export class Department implements OnInit {
     this.getAllDepartments();
   }
 
-  departments: DepartmentModel [] = [
-    { id: 1, name: 'Human Resources', isActive: true },
-    { id: 2, name: 'Engineering', isActive: true },
-    { id: 3, name: 'Finance & Accounts', isActive: false },
-  ];
+  // departments: DepartmentModel [] = [
+  //   { id: 1, name: 'Human Resources', isActive: true },
+  //   { id: 2, name: 'Engineering', isActive: true },
+  //   { id: 3, name: 'Finance & Accounts', isActive: false },
+  // ];
 
   private getEmpty(): DepartmentModel  {
-    return { id: 0, name: '', isActive: true };
+  return { departmentId: 0, departmentName: '', isActive: true };  // ← fix
   }
 
   getAllDepartments() {
     this.masterService.getAllDepartments().subscribe((data: any) => {
-      this.departments = data;
+      // this.departments = data;
       this.depList.set(data);
     });
   }
@@ -69,7 +69,7 @@ save(): void {
 // Only populate the form — NO API call here
 edit(dept: DepartmentModel): void {
   this.isEditMode = true;
-  this.editingId = dept.id;
+  this.editingId = dept.departmentId;  // ← fix
   this.department = { ...dept };  // spreads into form fields
 }
 

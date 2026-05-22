@@ -22,6 +22,7 @@ export class Header {
   navItems = [
     { label: 'Dashboard',    icon: 'fa-house',        route: '/dashboard' },
     { label: 'Employees',    icon: 'fa-users',        route: '/employees',    badge: 24 },
+    { label: 'New Employee', icon: 'fa-user-plus',    route: '/new-employee' },
     { label: 'Departments',  icon: 'fa-building',     route: '/departments' },
     { label: 'Designations', icon: 'fa-briefcase',    route: '/designations' },
     { label: 'Attendance',   icon: 'fa-calendar',     route: '/attendance',   badge: 3, badgeWarn: true },

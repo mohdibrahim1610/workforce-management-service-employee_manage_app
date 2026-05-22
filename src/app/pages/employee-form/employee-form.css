@@ -1,0 +1,147 @@
+   body {
+      background-color: #f4f6f9;
+      font-family: 'Segoe UI', sans-serif;
+      padding: 2rem 1rem;
+    }
+
+    .page-header {
+      margin-bottom: 1.75rem;
+    }
+
+    .page-header h4 {
+      font-weight: 600;
+      color: #1a1a2e;
+      margin-bottom: 0.2rem;
+    }
+
+    .page-header p {
+      color: #6c757d;
+      font-size: 0.875rem;
+      margin: 0;
+    }
+
+    .section-card {
+      background: #ffffff;
+      border: 1px solid #e8eaf0;
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .section-heading {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 1.25rem;
+      padding-bottom: 0.875rem;
+      border-bottom: 1px solid #f0f0f5;
+    }
+
+    .section-icon {
+      width: 34px;
+      height: 34px;
+      border-radius: 8px;
+      background: #eef2ff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #4f46e5;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+
+    .section-title {
+      font-size: 0.9375rem;
+      font-weight: 600;
+      color: #1a1a2e;
+      margin: 0;
+    }
+
+    .form-label {
+      font-size: 0.8125rem;
+      font-weight: 500;
+      color: #4b5563;
+      margin-bottom: 5px;
+    }
+
+    .form-control,
+    .form-select {
+      font-size: 0.875rem;
+      border: 1px solid #e2e5ec;
+      border-radius: 8px;
+      padding: 0.5rem 0.75rem;
+      color: #1a1a2e;
+      background-color: #fdfdff;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .form-control:focus,
+    .form-select:focus {
+      border-color: #4f46e5;
+      box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+      background-color: #fff;
+    }
+
+    .form-control::placeholder {
+      color: #b0b7c3;
+    }
+
+    textarea.form-control {
+      resize: vertical;
+      min-height: 80px;
+    }
+
+    .required-star {
+      color: #ef4444;
+      margin-left: 2px;
+    }
+
+    .optional-badge {
+      font-size: 0.7rem;
+      font-weight: 500;
+      color: #9ca3af;
+      background: #f3f4f6;
+      border-radius: 999px;
+      padding: 2px 8px;
+      margin-left: 4px;
+      vertical-align: middle;
+    }
+
+    .btn-save {
+      background: #4f46e5;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: 0.5rem 1.5rem;
+      font-size: 0.875rem;
+      font-weight: 500;
+      transition: background 0.2s;
+    }
+
+    .btn-save:hover {
+      background: #4338ca;
+      color: #fff;
+    }
+
+    .btn-reset {
+      background: transparent;
+      color: #6c757d;
+      border: 1px solid #dee2e6;
+      border-radius: 8px;
+      padding: 0.5rem 1.25rem;
+      font-size: 0.875rem;
+      font-weight: 500;
+      transition: background 0.2s;
+    }
+
+    .btn-reset:hover {
+      background: #f3f4f6;
+      color: #374151;
+    }
+
+    .action-row {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+      padding-top: 0.25rem;
+    }

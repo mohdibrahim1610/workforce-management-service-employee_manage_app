@@ -6,12 +6,12 @@
 
         <div class="field-group">
           <label class="form-label">Department</label>
-          <select formControlName="departmentId" class="form-select">
-            <option [value]="0" disabled>Select Department</option>
-            @for (item of depList(); track $index) {
-              <option [value]="item.id">{{ item.name }}</option>
-            }
-          </select>
+        <select formControlName="departmentId" class="form-select">
+          <option [value]="null" disabled>Select Department</option>
+          @for (item of depList(); track $index) {
+<option [value]="item.departmentId">{{ item.departmentName }}</option>
+          }
+        </select>
           @if (designationForm.get('departmentId')?.invalid &&
                designationForm.get('departmentId')?.touched) {
             <span class="error-text">Department is required</span>

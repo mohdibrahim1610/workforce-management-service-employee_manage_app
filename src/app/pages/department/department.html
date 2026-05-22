@@ -8,7 +8,7 @@
         <input
           type="text"
           id="deptName"
-          [(ngModel)]="department.name"
+          [(ngModel)]="department.departmentName"
           placeholder="e.g. Human Resources"
         />
       </div>
@@ -44,11 +44,11 @@
         </tr>
       </thead>
       <tbody>
-        @for (dept of depList(); track dept.id; let i = $index) {
-           <tr [class.editing]="editingId === dept.id">
+        @for (dept of depList(); track dept.departmentId; let i = $index) {
+           <tr [class.editing]="editingId === dept.departmentId ">
 
             <td>{{ $index + 1 }}</td>
-            <td>{{ dept.name }}</td>
+            <td>{{ dept.departmentName }}</td>
             <td>
               <span [class]="dept.isActive ? 'badge-active' : 'badge-inactive'">
                 {{ dept.isActive ? 'Active' : 'Inactive' }}
@@ -58,8 +58,8 @@
               <button class="btn-edit" (click)="edit(dept)">Edit</button>
               <button
                 class="btn-delete"
-                (click)="remove(dept.id)"
-                [disabled]="editingId === dept.id"
+                (click)="remove(dept.departmentId)"
+                [disabled]="editingId === dept.departmentId"
               >
                 Delete
               </button>

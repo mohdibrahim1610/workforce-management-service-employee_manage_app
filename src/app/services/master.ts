@@ -28,7 +28,9 @@ export class Master {
   /// Designation APIs
 
 getAllDesignations() { return this.http.get<DesignationModel[]>(this.apiUrl + 'DesignationMaster'); }
-saveDesignation(data: DesignationModel) { return this.http.post(this.apiUrl + 'DesignationMaster', data); }
+saveDesignation(data: DesignationModel) { 
+  return this.http.post(this.apiUrl + 'DesignationMaster/CreateDesignation', data); 
+}
 updateDesignation(id: number, data: DesignationModel) { return this.http.put(this.apiUrl + 'DesignationMaster/' + id, data); }
 deleteDesignation(id: number) { return this.http.delete(this.apiUrl + 'DesignationMaster/' + id); }
 }
